@@ -7,7 +7,15 @@ app.post('/blog', (req, res) => {
   let host = process.env.HOST
   let codeDir = '/home/wwwroot/docs'
   let publishDir = `/home/wwwroot/${host}`
-  exec(`cd ${codeDir} && git pull && hexo generate && rm -rf ${publishDir} && mv public ${publishDir} && chown -R www:www ${publishDir}`, (error, stdout, stderr) => {
+  let command = [
+    `cd ${codeDir}`,
+    `git pull`,
+    'hexo generate',
+    `rm -rf ${publishDir}`,
+    `mv public ${publishDir}`,
+    `chown -R www:www ${publishDir}`
+  ].join('&&')
+  exec(command + ' > /var/log/webhook-blog.log 2>&1', (error, stdout, stderr) => {
   })
   res.send('Hello World!')
 })
