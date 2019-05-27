@@ -3,7 +3,7 @@ let exec = require('child_process').exec
 
 const app = express()
 
-app.get('/blog', (req, res) => {
+app.post('/blog', (req, res) => {
   let host = process.env.HOST
   let codeDir = '/home/wwwroot/docs'
   let publishDir = `/home/wwwroot/${host}`
