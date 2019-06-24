@@ -6,14 +6,11 @@ const app = express()
 
 app.post('/blog', (req, res) => {
   let host = process.env.HOST
-  let codeDir = '/home/wwwroot/docs'
+  let codeDir = `/home/wwwroot/${host}`
   let publishDir = `/home/wwwroot/${host}`
   let command = [
     `cd ${codeDir}`,
-    `git pull`,
-    'hexo generate',
-    `rm -rf ${publishDir}`,
-    `mv public ${publishDir}`,
+    `git pull -f`,
     `chown -R www:www ${publishDir}`
   ].join('&&')
   exec(command + ' > /var/log/webhook-blog.log 2>&1', (error, stdout, stderr) => {
@@ -21,4 +18,4 @@ app.post('/blog', (req, res) => {
   res.send(command)
 })
 
-app.listen(8600, () => console.log('Example app listening on port 3000!'))
+app.listen(8700, () => console.log('Example app listening on port 3000!'))
