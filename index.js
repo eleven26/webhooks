@@ -33,6 +33,7 @@ app.post('/laravel', (req, res) => {
   if (host === 'api.baiguiren.com') {
     command.push(`supervisorctl restart api`)
     command.push(`php /home/wwwroot/api.baiguiren.com/artisan mail`)
+    command.push(`/usr/local/node/bin/apidoc -i app/Http/Controllers -o public/apidoc`)
   }
   command = command.join('&&')
   exec(command + ' > /var/log/webhook-blog.log 2>&1', (error, stdout, stderr) => {
