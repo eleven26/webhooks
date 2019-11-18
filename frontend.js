@@ -10,7 +10,7 @@ app.post('/frontend', (req, res) => {
     `cd ${codeDir}`,
     `git pull`,
     `./deploy.sh`,
-    `php /Users/ruby/Code/eb-backend/artisan mail --extra=frontend`
+    `php /Users/ruby/Code/eb-backend/dingding.php 2`
   ].join('&&')
   exec(command + ' > /var/log/webhook-blog.log 2>&1', (error, stdout, stderr) => {
   })
